@@ -6,34 +6,32 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.uce.repository.modelo.Empleado;
+import com.example.demo.uce.repository.modelo.Estudiante;
+
 @Repository
 @Transactional
-public class EmpleadoRepositoryImpl implements IEmpleadoRepository {
+public class EstudianteRepositoryImpl implements IEstudianteRepository {
 	@PersistenceContext
 	private EntityManager entityManager;
-	
+
 	@Override
-	public void crear(Empleado empleado) {
-		this.entityManager.persist(empleado);
+	public void crear(Estudiante estudiante) {
+		this.entityManager.persist(estudiante);
 	}
 
 	@Override
-	public void actualizar(Empleado empleado) {
-		this.entityManager.merge(empleado);
-		
+	public void actualizar(Estudiante estudiante) {
+		this.entityManager.merge(estudiante);
 	}
-	@Override
-	public Empleado buscar(Integer id) {
-		return 		this.entityManager.find(Empleado.class, id);
 
+	@Override
+	public Estudiante buscar(Integer id) {
+		return this.entityManager.find(Estudiante.class, id);
 	}
+
 	@Override
 	public void eliminar(Integer id) {
 		this.entityManager.remove(this.buscar(id));
 	}
-
-	
-	
 
 }
