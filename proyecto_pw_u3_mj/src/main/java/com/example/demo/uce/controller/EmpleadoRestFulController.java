@@ -1,5 +1,9 @@
 package com.example.demo.uce.controller;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.websocket.server.PathParam;
 import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +63,10 @@ public class EmpleadoRestFulController {
 		this.empleadoService.eliminar(id);
 		return "eliminado con exito ";
 		
+	}
+	@GetMapping
+	public List<Empleado> buscarEmpleadoSlario(@PathParam(value="sal") BigDecimal salario){
+		 return this.empleadoService.empleadoSalario(salario);
 	}
 	
 

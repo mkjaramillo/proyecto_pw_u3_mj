@@ -1,5 +1,10 @@
 package com.example.demo.uce.service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.TypedQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,4 +36,11 @@ public class EmpleadoServiceImpl implements IEmpleadoService {
 		this.empleadoRepository.eliminar(id);
 	}
 
+	@Override
+	public List<Empleado> empleadoSalario(BigDecimal salario) {
+		// TODO Auto-generated method stub
+		return this.empleadoRepository.empleadoSalario(salario);
+	}
+	
+	
 }
