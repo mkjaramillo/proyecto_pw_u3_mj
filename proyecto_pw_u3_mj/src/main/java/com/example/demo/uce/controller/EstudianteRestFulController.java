@@ -1,5 +1,7 @@
 package com.example.demo.uce.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.uce.repository.modelo.Empleado;
@@ -16,7 +19,7 @@ import com.example.demo.uce.repository.modelo.Estudiante;
 import com.example.demo.uce.service.IEstudianteService;
 
 @RestController
-@RequestMapping("/APILista/V1/estudiante")
+@RequestMapping("/estudiantes")
 public class EstudianteRestFulController {
 	@Autowired
 private IEstudianteService estudianteService;
@@ -62,4 +65,9 @@ public String eliminarEstudiante(@PathVariable("idEstudiante")Integer idEst) {
 
 	return mensaje;
 }
+@GetMapping
+public List<Estudiante> estudianteAllSemestre(@RequestParam(value="semes")String semestre){
+	return this.estudianteService.estudianteAllSemestre(semestre);
+}
+
 }
