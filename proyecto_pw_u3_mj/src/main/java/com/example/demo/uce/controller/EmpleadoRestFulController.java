@@ -1,12 +1,16 @@
 package com.example.demo.uce.controller;
 
 import java.math.BigDecimal;
+
 import java.util.List;
 
 import javax.websocket.server.PathParam;
 import javax.xml.ws.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.RuntimeBeanNameReference;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +37,7 @@ public class EmpleadoRestFulController {
 			this.empleadoService.crear(empleado);
 		} catch (Exception e) {
 			mensaje = "Error intente mas tarde";
-
+			throw new RuntimeException();
 		}
 
 		return mensaje;
@@ -55,7 +59,25 @@ public class EmpleadoRestFulController {
 	public ResponseEntity<Empleado> buscarEmpleado(@PathVariable("idEmpleado") Integer id) {
 		Empleado empl=this.empleadoService.buscarId(id);
 		
-		return ResponseEntity.ok(empl);
+	return ResponseEntity.ok(empl);//hace referencia al 200
+		
+	}
+	@GetMapping(path="/status/{idEmpleado}")
+	public ResponseEntity<Empleado> buscarEmpleadoStatus(@PathVariable("idEmpleado") Integer id) {
+		Empleado empl=this.empleadoService.buscarId(id);
+		return ResponseEntity.status(HttpStatus.OK).body(empl);
+	//	return ResponseEntity.ok(empl);//hace referencia al 200
+		
+	}
+	@GetMapping(path="/headers/{idEmpleado}")
+	public ResponseEntity<Empleado> buscarEmpleadoHeaders(@PathVariable("idEmpleado") Integer id) {
+		HttpHeaders headers= new HttpHeaders();
+		headers.add("detalleMensaje", "Esta bien pero envia un dato adicional");
+		headers.add("solicitud", "recuerda consumirme mañana");
+		headers.add("valor", "1");
+		Empleado empl=this.empleadoService.buscarId(id);
+		return  new ResponseEntity<>(empl,headers,HttpStatus.OK);
+	//	return ResponseEntity.ok(empl);//hace referencia al 200
 		
 	}
 
@@ -66,8 +88,9 @@ public class EmpleadoRestFulController {
 		
 	}
 	@GetMapping
-	public List<Empleado> buscarEmpleadoSlario(@RequestParam(value="sal") BigDecimal salario){
-		 return this.empleadoService.empleadoSalario(salario);
+	public List<Empleado> buscarEmpleadoSlario(@RequestParam(value="salario") BigDecimal salario, @RequestParam(value="provincia") String provincia){
+		 System.out.println(provincia);
+		return this.empleadoService.empleadoSalario(salario);
 	}
 	
 
