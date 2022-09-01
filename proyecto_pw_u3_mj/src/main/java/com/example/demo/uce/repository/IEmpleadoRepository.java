@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.example.demo.uce.repository.modelo.Empleado;
+import com.example.demo.uce.repository.modelo.Hijo;
 
 
 
@@ -13,5 +14,8 @@ public interface IEmpleadoRepository {
 	public void eliminar(Integer id);
 	public Empleado buscar(Integer id);
 	public List<Empleado> empleadoSalario(BigDecimal salario);
+	public java.util.List<Empleado> buscarTodos();
+	public java.util.List<Hijo> consultarHijo(Integer idEmpleado);
+
 
 }
