@@ -52,12 +52,6 @@ public class EmpleadoRepositoryImpl implements IEmpleadoRepository {
 	TypedQuery<Empleado> query=this.entityManager.createQuery( "SELECT e from Empleado e",Empleado.class);
 	return query.getResultList();
 	}
-	@Override
-	public java.util.List<Hijo> consultarHijo(Integer idEmpleado) {
-	TypedQuery<Hijo> query=this.entityManager.createQuery( "SELECT e from Hijo e Where e.empleado.id=:idEmpleado",Hijo.class);
-	query.setParameter("idEmpleado", idEmpleado);
-	return query.getResultList();
-	}
 	
 	
 
